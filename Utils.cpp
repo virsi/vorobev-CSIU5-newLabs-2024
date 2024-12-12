@@ -5,43 +5,19 @@
 #include <unistd.h>
 #include <random>
 
-long long factorial(int n) {
+long long Factorial(int n) {
     if (n == 0 || n == 1) return 1;
-    else return n * factorial(n - 1);
+    else return n * Factorial(n - 1);
 }
 
 void Clear(double** A, int N) {
-    for (int i = 1; i < N; ++i)
+    for (int i = 1; i < N; ++i) {
         delete[] A[i];
+        A[i] = nullptr;
+    }
     delete[] A;
+    A = nullptr;
 }
-
-// double** CreateMatrix(int N, int M) {
-//     double** A = new double* [N];
-//     for (int i = 1; i < N; ++i)
-//     {
-//         A[i] = new double[M];
-//         for (int j = 1; j < M; ++j)
-//             A[i][j] = 0;
-//     }
-//     return A;
-// }
-
-// void FillMatrix(double** A, int N, int M) {
-//     for (int i = 1; i < N; i++) {
-//         for (int j = 1; j < M; j++) {
-//             if (i == 1) {
-//                 A[i][j] = 1;
-//             }
-//             else {
-//                 if (j == 1)
-//                     A[i][j] = A[i - 1][j] / i;
-//                 else
-//                     A[i][j] = pow(A[i][1], j);
-//             }
-//         }
-//     }
-// }
 
 double** CreateMatrix(int N, int M) {
     double** A = new double*[N];
@@ -55,10 +31,10 @@ double** CreateMatrix(int N, int M) {
                 A[i][j] = 1;  // Главная диагональ
             } else if (i < j) {
                 // Формула для элементов выше главной диагонали
-                A[i][j] = 1 / pow(factorial(j), i);
+                A[i][j] = 1 / pow(Factorial(j), i);
             } else {
                 // Формула для элементов ниже главной диагонали
-                A[i][j] = pow(-1, i) / pow(factorial(j), i); 
+                A[i][j] = pow(-1, i) / pow(Factorial(j), i); 
             }
         }
     }
@@ -69,14 +45,18 @@ double** CreateMatrix(int N, int M) {
 
 Size GenerateMatrixSizes() {
     Size matrixSizes{};
-    std::random_device rd;
+    /*std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distribSize(8, 15);
     std::uniform_int_distribution<> distribPrecision(3, 8);
-    
     matrixSizes.N = distribSize(gen);
     matrixSizes.M = distribSize(gen);
     matrixSizes.precision = distribPrecision(gen);
+    */
+    
+    std::cin >> matrixSizes.N;
+    std::cin >> matrixSizes.M;
+    std::cin >> matrixSizes.precision;
 
     return matrixSizes;
 }
@@ -90,22 +70,37 @@ int GetConsoleWidth() {
 void ProgrammStart() {
     Size matrixSizes = GenerateMatrixSizes();
     
-    if (GetConsoleWidth() / matrixSizes.N < matrixSizes.precision + 2) {
-        std::cout << "Невозможно напечатать матрицу!";
-        return;
-    }
+    // if (GetConsoleWidth() / matrixSizes.N < matrixSizes.precision + 9) {
+    //     std::cout << "Невозможно напечатать матрицу!";
+    //     return;
+    // }
    
     double** A = CreateMatrix(matrixSizes.N + 1, matrixSizes.M + 1);
-    //FillMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1);
-    PrintDinamicMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1);
+
+    // PrintDinamicMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1, matrixSizes.precision, 'A');
+    // PrintDinamicMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1, matrixSizes.precision, 'a');
+    PrintMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1, matrixSizes.precision, 1);
+    PrintMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1, matrixSizes.precision, 2);
+
     Clear(A, matrixSizes.N + 1);
 
     double B[10][10];
 
-    for (int i = 0; i < 10; i++)
-        for (int j = 0; j < 10; j++)
+    for (int i = 0; i < 10; ++i)
+        for (int j = 0; j < 10; ++j)
             B[i][j] = 10 * i + j;
 
+    // for (int i = 1; i < 11; ++i)
+    //     for (int j = 0; j < 11; ++j)
+    //         B[i][j] = 10 * i + j;
+
     std::cout << "Матрица B \n\n\n";
-    PrintStaticMatrix(B);
+    //PrintStaticMatrix(B);
+    PrintMatrix(B, 10);
+
+    std::cout<<B<<"  "<<B[0]<<"  "<<B[2]<<std::endl;
+    std::cout<<B[0][0]<<"  "<<**B <<"  "<<*B[0]<<std::endl;
+    std::cout<<*(*(B+1))<<"  "<<*B[1]<<std::endl;
+    std::cout<<*(B[0]+1)<<"  " <<*(*B+1)<<std::endl;
+    std::cout<<B[0][9]<<"  "<<*(B[0]+20)<<"  "<<*B[2]<<std::endl;
 }
