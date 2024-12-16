@@ -34,7 +34,7 @@ double** CreateMatrix(int N, int M) {
                 A[i][j] = 1 / pow(Factorial(j), i);
             } else {
                 // Формула для элементов ниже главной диагонали
-                A[i][j] = pow(-1, i) / pow(Factorial(j), i); 
+                A[i][j] = pow(-1, i) / pow(Factorial(j), i);
             }
         }
     }
@@ -42,21 +42,16 @@ double** CreateMatrix(int N, int M) {
     return A;
 }
 
-
 Size GenerateMatrixSizes() {
     Size matrixSizes{};
-    /*std::random_device rd;
+    std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distribSize(8, 15);
     std::uniform_int_distribution<> distribPrecision(3, 8);
+
     matrixSizes.N = distribSize(gen);
     matrixSizes.M = distribSize(gen);
     matrixSizes.precision = distribPrecision(gen);
-    */
-    
-    std::cin >> matrixSizes.N;
-    std::cin >> matrixSizes.M;
-    std::cin >> matrixSizes.precision;
 
     return matrixSizes;
 }
@@ -69,16 +64,9 @@ int GetConsoleWidth() {
 
 void ProgrammStart() {
     Size matrixSizes = GenerateMatrixSizes();
-    
-    // if (GetConsoleWidth() / matrixSizes.N < matrixSizes.precision + 9) {
-    //     std::cout << "Невозможно напечатать матрицу!";
-    //     return;
-    // }
-   
+
     double** A = CreateMatrix(matrixSizes.N + 1, matrixSizes.M + 1);
 
-    // PrintDinamicMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1, matrixSizes.precision, 'A');
-    // PrintDinamicMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1, matrixSizes.precision, 'a');
     PrintMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1, matrixSizes.precision, 1);
     PrintMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1, matrixSizes.precision, 2);
 
@@ -90,12 +78,7 @@ void ProgrammStart() {
         for (int j = 0; j < 10; ++j)
             B[i][j] = 10 * i + j;
 
-    // for (int i = 1; i < 11; ++i)
-    //     for (int j = 0; j < 11; ++j)
-    //         B[i][j] = 10 * i + j;
-
     std::cout << "Матрица B \n\n\n";
-    //PrintStaticMatrix(B);
     PrintMatrix(B, 10);
 
     std::cout<<B<<"  "<<B[0]<<"  "<<B[2]<<std::endl;
