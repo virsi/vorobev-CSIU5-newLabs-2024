@@ -1,7 +1,5 @@
-#include "Utils.h"
-#include "mprinter.h"
+#include "GaussJordan.h"
 
-int main(int, char**) {
-    ProgrammStart();
-    return 0;
+int main(int, char**){
+	return CycleApp::ContinueWork();
 }
