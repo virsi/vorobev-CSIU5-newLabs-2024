@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <fstream>
-#include "Main.h"
+#include "mdict.h"
 using namespace std;
 
 int PrintMenu() {

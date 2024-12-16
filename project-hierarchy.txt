@@ -1,0 +1,7 @@
+vorobev-CSIU5-newLabs-2024
+├─ README.md
+├─ a.out
+├─ dict.txt
+├─ mdict.cpp
+├─ mdict.h
+└─ mdict.txt

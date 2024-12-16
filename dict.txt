@@ -1,3 +1,1 @@
-kot cat
-mashina car
-0 0
+машина car
