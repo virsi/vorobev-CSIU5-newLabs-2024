@@ -68,9 +68,7 @@ void ProgrammStart() {
     double** A = CreateMatrix(matrixSizes.N + 1, matrixSizes.M + 1);
 
     PrintMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1, matrixSizes.precision, 1);
-    PrintMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1, matrixSizes.precision, 2);
-
-    Clear(A, matrixSizes.N + 1);
+    //PrintMatrix(A, matrixSizes.N + 1, matrixSizes.M + 1, matrixSizes.precision, 2);
 
     double B[10][10];
 
@@ -86,4 +84,6 @@ void ProgrammStart() {
     std::cout<<*(*(B+1))<<"  "<<*B[1]<<std::endl;
     std::cout<<*(B[0]+1)<<"  " <<*(*B+1)<<std::endl;
     std::cout<<B[0][9]<<"  "<<*(B[0]+20)<<"  "<<*B[2]<<std::endl;
+
+    Clear(A, matrixSizes.N + 1);
 }
